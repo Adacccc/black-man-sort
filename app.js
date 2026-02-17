@@ -1,33 +1,37 @@
-var order = ["div1", "div2", "div3"];
-var values = [21, 13, 1];
-var container = document.getElementById("container");
+const container = document.getElementById("container");
 
-function Sort()
+function swap(a, b)
+{
+    [a, b] = [b, a];
+    return [a, b];
+}
+
+function find(value)
 {
     for (let i = 0; i < 3; i++)
-    {
-        for (let j = 0; j < 2; j++)
-        {
-            if (values[j] < values[j + 1])
-            {
-                let t1 = values[j];
-                let t2 = order[j];
-                values[j] = values[j + 1];
-                values[j + 1] = t1;
-                order[j] = order[j + 1];
-                order[j + 1] = t2;
-            }
-        }
-    }
+        if (value == order[i])
+            return i;
+    return -1;
 }
 
 function Execute()
 {
+    let order = ["div1", "div2", "div3"];
+    let values = [document.getElementById("in1").value, document.getElementById("in2").value, document.getElementById("in3").value];
     let first = document.getElementById(order[0]);
-    values[0] = document.getElementById("in1").value;
-    values[1] = document.getElementById("in2").value;
-    values[2] = document.getElementById("in3").value;
-    Sort();
+    console.log(values);
+    console.log(order);
+    for (let i = 0; i < 2; i++)
+    {
+        for (let j = i; j < 3; j++)
+        {
+            if (parseInt(values[j]) > parseInt(values[i]))
+            {
+                [values[j], values[i]] = swap(values[j], values[i]);
+                [order[j], order[i]] = swap(order[j], order[i])
+            }
+        }
+    }
     container.insertBefore(document.getElementById(order[2]), first);
     container.insertBefore(document.getElementById(order[1]), document.getElementById(order[2]));
     container.insertBefore(document.getElementById(order[0]), document.getElementById(order[1]));
